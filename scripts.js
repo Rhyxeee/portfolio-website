@@ -140,5 +140,59 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: true });
 
+
+
+  // --- PROFILE MODAL FEATURE START ---
+
+const profileLogo = document.getElementById('profileLogo');
+const profileModalBack = document.querySelector('.profile-modal-back');
+const profileModalClose = document.querySelector('.profile-modal-close');
+const body = document.body;
+
+function openProfileModal() {
+  console.log('Profile modal opening');
+  profileModalBack.classList.add('show');
+  profileModalBack.setAttribute('aria-hidden', 'false');
+  profileModalClose.focus();
+  body.style.overflow = 'hidden';
+}
+
+function closeProfileModal() {
+  console.log('Profile modal closing');
+  profileModalBack.classList.remove('show');
+  profileModalBack.setAttribute('aria-hidden', 'true');
+  body.style.overflow = '';
+  profileLogo.focus();
+}
+
+if (profileLogo) {
+  profileLogo.addEventListener('click', openProfileModal);
+  profileLogo.addEventListener('keypress', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openProfileModal();
+    }
+  });
+}
+
+if (profileModalClose) {
+  profileModalClose.addEventListener('click', closeProfileModal);
+}
+
+if (profileModalBack) {
+  profileModalBack.addEventListener('click', e => {
+    if (e.target === profileModalBack) closeProfileModal();
+  });
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && profileModalBack.classList.contains('show')) {
+    closeProfileModal();
+  }
 });
 
+// --- PROFILE MODAL FEATURE END ---
+
+
+
+});
