@@ -1,132 +1,174 @@
-// scripts.js - robust toggle + diagnostics + persistence
-(function () {
-  'use strict';
+/* NAV HIGHLIGHTER
+ * - Uses IntersectionObserver to detect the section most visible around the viewport center.
+ * - Falls back to viewport-midpoint checking if IntersectionObserver is not available.
+ * - Always highlights exactly one nav link.
+ * - Handles top and bottom edges, fixed header offsets, and logs debug info when debug=true.
+ */
 
-  // Global error catcher to help debugging
-  window.addEventListener('error', function (e) {
-    console.error('[scripts.js] window error', e.error || e.message, e.filename, 'line', e.lineno);
+/* ==== CONFIG ==== */
+const DEBUG = true;            // set false to turn off console logs
+const ACTIVE_CLASS = 'active'; // CSS class to toggle on links
+const NAV_SELECTOR = '.floating-nav'; // selector for the nav container
+const LINK_SELECTOR = `${NAV_SELECTOR} a`; // selector to collect links
+const SECTION_OFFSET = 0;      // if you have a fixed header, set header height (px) here
+
+/* ==== DOM SETUP ==== */
+document.addEventListener('DOMContentLoaded', () => {
+  const nav = document.querySelector(NAV_SELECTOR);
+  if (!nav) {
+    if (DEBUG) console.warn('Nav not found:', NAV_SELECTOR);
+    return;
+  }
+
+  const links = Array.from(document.querySelectorAll(LINK_SELECTOR));
+  if (links.length === 0) {
+    if (DEBUG) console.warn('No nav links found for selector:', LINK_SELECTOR);
+    return;
+  }
+
+  // Map each link -> target section element (or null)
+  const linkToSection = links.map(link => {
+    const href = link.getAttribute('href') || '';
+    // Only handle same-page anchors (starting with '#')
+    if (!href.startsWith('#')) return { link, section: null, href };
+    const id = href.slice(1);
+    const section = document.getElementById(id);
+    return { link, section, href, id };
   });
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const $ = sel => document.querySelector(sel);
-    const $$ = sel => Array.from(document.querySelectorAll(sel));
-    const log = (...args) => {
-      if (window.console && console.info) console.info('[scripts.js]', ...args);
+  // Quick sanity check: ensure all anchor targets exist
+  linkToSection.forEach(({ link, section, href, id }) => {
+    if (!section) {
+      console.error('Nav link target not found for', href, ' — check your HTML id/href match.');
+    } else if (DEBUG) {
+      console.log('Mapped link', href, '->', section.tagName, 'id=' + section.id);
+    }
+  });
+
+  // Filter to only valid pairs (links with section)
+  const validPairs = linkToSection.filter(x => x.section);
+
+  if (validPairs.length === 0) {
+    if (DEBUG) console.warn('No valid link->section pairs. Aborting.');
+    return;
+  }
+
+  /* ==== Utility: clear all active states and set one === */
+  function setActiveLink(activeLink) {
+    links.forEach(a => a.classList.remove(ACTIVE_CLASS));
+    if (activeLink) activeLink.classList.add(ACTIVE_CLASS);
+  }
+
+  /* ==== Primary approach: IntersectionObserver (recommended) ==== */
+  if ('IntersectionObserver' in window) {
+    // We'll observe each section and pick the section with highest intersection ratio
+    // The rootMargin is tuned so the intersection evaluates roughly around viewport center.
+    const observerOptions = {
+      root: null,
+      rootMargin: `-${Math.max(0, SECTION_OFFSET)}px 0px -50% 0px`, 
+      threshold: buildThresholdList()
     };
 
-    log('DOM ready');
-
-    // ===== ELEMENTS =====
-    const mobileViewBtn = $('#mobileViewBtn');
-    const desktopViewBtn = $('#desktopViewBtn');
-    const body = document.body;
-    const scrollBtn = $('#scrollTopBtn');
-
-    log('elements', { mobileViewBtn, desktopViewBtn, body, scrollBtn });
-
-    // Defensive: if elements missing, try fallback selectors
-    if (!mobileViewBtn) {
-      const m = document.querySelector('.view-toggle-buttons button:first-child');
-      if (m) {
-        log('mobileViewBtn not found by id; using fallback', m);
-      }
-    }
-    if (!desktopViewBtn) {
-      const d = document.querySelector('.view-toggle-buttons button:last-child');
-      if (d) {
-        log('desktopViewBtn not found by id; using fallback', d);
-      }
+    // thresholds for smoother ratio changes
+    function buildThresholdList() {
+      const thresholds = [];
+      for (let i=0; i<=100; i+=5) thresholds.push(i/100);
+      return thresholds;
     }
 
-    // Helper to update UI + aria + storage
-    function setViewState({ mobile }) {
-      try {
-        if (mobile) {
-          body.classList.add('mobile-view');
-          if (mobileViewBtn) { mobileViewBtn.classList.add('active'); mobileViewBtn.setAttribute('aria-pressed', 'true'); }
-          if (desktopViewBtn) { desktopViewBtn.classList.remove('active'); desktopViewBtn.setAttribute('aria-pressed', 'false'); }
-          localStorage.setItem('preferredView', 'mobile');
-          log('setViewState -> mobile');
-        } else {
-          body.classList.remove('mobile-view');
-          if (desktopViewBtn) { desktopViewBtn.classList.add('active'); desktopViewBtn.setAttribute('aria-pressed', 'true'); }
-          if (mobileViewBtn) { mobileViewBtn.classList.remove('active'); mobileViewBtn.setAttribute('aria-pressed', 'false'); }
-          localStorage.setItem('preferredView', 'desktop');
-          log('setViewState -> desktop');
-        }
-      } catch (err) {
-        console.error('[scripts.js] setViewState error', err);
-      }
-    }
+    let visibilityMap = new Map(); // section -> intersectionRatio
 
-    // Initialize from localStorage or markup
-    try {
-      const pref = localStorage.getItem('preferredView');
-      if (pref === 'mobile') setViewState({ mobile: true });
-      else if (pref === 'desktop') setViewState({ mobile: false });
-      else {
-        // fall back to markup: if desktop button has .active or aria-pressed true
-        const desktopPressed = desktopViewBtn && (desktopViewBtn.classList.contains('active') || desktopViewBtn.getAttribute('aria-pressed') === 'true');
-        setViewState({ mobile: !desktopPressed });
-      }
-    } catch (err) {
-      console.error('[scripts.js] init localStorage error', err);
-    }
-
-    // Attach listeners safely
-    function attach(btn, fn) {
-      if (!btn) return;
-      // pointerup covers touch and mouse; click as fallback
-      btn.addEventListener('pointerup', fn, { passive: true });
-      btn.addEventListener('click', fn, { passive: true });
-      btn.addEventListener('keydown', (ev) => {
-        if (ev.key === 'Enter' || ev.key === ' ') {
-          ev.preventDefault();
-          fn(ev);
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const sec = entry.target;
+        visibilityMap.set(sec, entry.intersectionRatio || 0);
+        if (DEBUG) {
+          console.log('[IO]', sec.id, 'ratio=', entry.intersectionRatio.toFixed(3),
+            'rectTop=', Math.round(entry.boundingClientRect.top),
+            'rectBottom=', Math.round(entry.boundingClientRect.bottom));
         }
       });
-      // add a small aria toggle when activated by keyboard or click
-      btn.setAttribute('role', 'button');
-    }
 
-    // Guard to prevent ultra-rapid toggles
-    let lastToggle = 0;
-    function guard(fn) {
-      return function (ev) {
-        const now = Date.now();
-        if (now - lastToggle < 120) return;
-        lastToggle = now;
-        try { fn(ev); } catch (err) { console.error('[scripts.js] guarded handler error', err); }
-      };
-    }
+      // Choose section with highest intersectionRatio
+      let best = { section: null, ratio: -1 };
+      for (const [sec, ratio] of visibilityMap.entries()) {
+        if (ratio > best.ratio) best = { section: sec, ratio };
+      }
 
-    attach(mobileViewBtn, guard((ev) => {
-      ev && ev.preventDefault && ev.preventDefault();
-      setViewState({ mobile: true });
-    }));
-    attach(desktopViewBtn, guard((ev) => {
-      ev && ev.preventDefault && ev.preventDefault();
-      setViewState({ mobile: false });
-    }));
-
-    // Expose a helper for console testing
-    window.debugToggleMobile = function () {
-      const isMobile = document.body.classList.contains('mobile-view');
-      setViewState({ mobile: !isMobile });
-      log('debugToggleMobile -> now mobile?', document.body.classList.contains('mobile-view'));
-    };
-
-    log('listeners attached. Try window.debugToggleMobile() or click the buttons.');
-
-    // Optional: quick visual sanity log when body.mobile-view class changes
-    new MutationObserver((mutations) => {
-      mutations.forEach(m => {
-        if (m.attributeName === 'class') {
-          log('body class changed:', body.className);
+      if (best.section) {
+        const pair = validPairs.find(p => p.section === best.section);
+        if (pair) {
+          setActiveLink(pair.link);
+          if (DEBUG) console.log('ACTIVE ->', pair.id, 'ratio=', best.ratio.toFixed(3));
         }
-      });
-    }).observe(body, { attributes: true, attributeFilter: ['class'] });
+      }
+    }, observerOptions);
 
-    // End of DOMContentLoaded
-  }); // DOMContentLoaded
-})(); // IIFE
+    // observe the target sections
+    validPairs.forEach(p => {
+      visibilityMap.set(p.section, 0);
+      io.observe(p.section);
+    });
+
+    // edge-case fix: when loading at bottom or top, force one active
+    window.addEventListener('load', () => {
+      // If nothing active, pick the nearest section to viewport center
+      const currentlyActive = nav.querySelector(`a.${ACTIVE_CLASS}`);
+      if (!currentlyActive) findByMidpointAndSet();
+    });
+
+  } else {
+    /* ==== Fallback: viewport midpoint check on scroll (robust enough) ==== */
+    if (DEBUG) console.warn('IntersectionObserver not supported — using fallback.');
+
+    function findByMidpointAndSet() {
+      const midpoint = window.innerHeight / 2;
+      // compute distance of midpoint to each section's bounding rect center
+      let best = { section: null, dist: Infinity };
+      validPairs.forEach(p => {
+        const rect = p.section.getBoundingClientRect();
+        const center = (rect.top + rect.bottom) / 2;
+        const dist = Math.abs(center - midpoint);
+        if (dist < best.dist) best = { section: p.section, dist };
+      });
+      if (best.section) {
+        const pair = validPairs.find(p => p.section === best.section);
+        setActiveLink(pair.link);
+        if (DEBUG) console.log('MIDPOINT ACTIVE ->', pair.id, 'dist=', Math.round(best.dist));
+      }
+    }
+
+    // throttle helper
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          findByMidpointAndSet();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // initial set
+    findByMidpointAndSet();
+  }
+
+  /* ==== Helper: exact top/bottom edge handling (optional) ==== */
+  // If user scrolled to very top, highlight Home explicitly
+  window.addEventListener('scroll', () => {
+    const sc = window.scrollY || window.pageYOffset;
+    if (sc === 0) {
+      const homePair = validPairs.find(p => p.id === 'home' || p.href === '#home');
+      if (homePair) setActiveLink(homePair.link);
+      if (DEBUG) console.log('TOP OF PAGE -> Home active');
+    }
+    // bottom of page: ensure last section active
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 2) {
+      const last = validPairs[validPairs.length-1];
+      if (last) setActiveLink(last.link);
+      if (DEBUG) console.log('BOTTOM OF PAGE ->', last.id || last.href);
+    }
+  }, { passive: true });
+
+}); // end DOMContentLoaded
