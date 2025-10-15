@@ -113,6 +113,8 @@ header{
   transition:transform 0.3s ease;
 }
 
+.logo:hover img{ transform:scale(1.05); }
+
 h1{ font-size:24px; margin:0; }
 .subtitle{ color:var(--muted); font-size:16px; margin-top:4px; }
 
@@ -448,6 +450,7 @@ body.show-scrollbar::-webkit-scrollbar-thumb{ background-color:var(--accent); }
 .no-margin-top{ margin-top:0 !important; }
 .small{ font-size:14px; margin-bottom:12px; }
 .skills-list li{ margin-bottom:8px; }
+
 
 
 
