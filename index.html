@@ -3,56 +3,43 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,maximum-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Portfolio of Mark Anthony Nene, aspiring Data Analyst with experience in Excel dashboards, audits, and dataset preprocessing.">
     <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
     <link rel="manifest" href="favicon_io/site.webmanifest">
+
     <link rel="stylesheet" href="styles.css">
-    <script src="scripts.js"></script>
     <title>Mark Anthony Nene — Data Analyst Portfolio</title>
 </head>
 
 <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <div class="wrap">
-        <header id="home">
-            <div class="header-top">
-                <div class="brand">
-                    <a href="#home" id="profileLogo" class="logo" aria-label="Go to top of page">
-                        <img src="images/profile.png" alt="Mark Anthony Nene professional headshot" loading="lazy" width="120" height="120">
-                    </a>
-                    <div>
-                        <h1>Mark Anthony Nene</h1>
-                        <div class="subtitle">Aspiring Data Analyst — Bachelor of Science in Applied Mathematics</div>
+        <main id="main">
+            <header id="home">
+                <div class="header-top">
+                    <div class="brand">
+                        <button id="profileLogo" class="logo" type="button" aria-label="Open profile image">
+                            <img src="images/profile.png" alt="Mark Anthony Nene professional headshot" loading="lazy" width="120" height="120">
+                        </button>
+                        <div>
+                            <h1>Mark Anthony Nene</h1>
+                            <div class="subtitle">Aspiring Data Analyst — Bachelor of Science in Applied Mathematics</div>
+                        </div>
                     </div>
                 </div>
-                <div class="view-toggle-buttons">
-                    <button id="mobileViewBtn" type="button" class="view-btn" aria-label="Toggle mobile view" aria-pressed="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                            <title>Mobile View</title>
-                            <path d="M17 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-1 18H8v-1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v1zm1-3H7V5h10v12z" />
-                        </svg>
-                        <span class="view-label">Mobile View</span>
-                    </button>
-                    <button id="desktopViewBtn" type="button" class="view-btn active" aria-label="Toggle desktop view" aria-pressed="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                            <title>Desktop View</title>
-                            <path d="M22 17H2V5h20v12zm-2-2V7H4v8h16zM1 18h22v2H1v-2z" />
-                        </svg>
-                        <span class="view-label">Desktop View</span>
-                    </button>
+                <div class="hero-content">
+                    <h2>Turning raw data into insights that guide smarter decisions</h2>
+                    <p class="subtitle">Portfolio showcasing analytics, audits, preprocessing, and visualization projects</p>
+                    <div class="cta-row">
+                        <a href="#projects" class="btn" aria-label="View Projects">View Projects</a>
+                        <a id="downloadResume" href="https://drive.google.com/uc?export=download&id=145bViVMgn_5A1USynGsoquODSCgM_s_H" download="Mark_Anthony_Nene_Resume.pdf" class="btn-outline" target="_blank" rel="noopener" aria-label="Download Resume in PDF format">Download Resume (PDF)</a>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-content">
-                <h2>Turning raw data into insights that guide smarter decisions</h2>
-                <p class="subtitle">Portfolio showcasing analytics, audits, preprocessing, and visualization projects</p>
-                <div class="cta-row">
-                    <a href="#projects" class="btn" aria-label="View Projects">View Projects</a>
-                    <a id="downloadResume" href="https://drive.google.com/uc?export=download&id=145bViVMgn_5A1USynGsoquODSCgM_s_H" download="Mark_Anthony_Nene_Resume.pdf" class="btn-outline" target="_blank" rel="noopener" aria-label="Download Resume in PDF format">Download Resume (PDF)</a>
-                </div>
-            </div>
-        </header>
+            </header>
+
         <section id="about-me">
             <div class="card-style">
                 <h3 class="no-margin-top">About</h3>
@@ -77,6 +64,7 @@
                 </div>
             </div>
         </section>
+
         <section id="projects">
             <h2>Selected Projects</h2>
             <div class="grid">
@@ -84,7 +72,7 @@
                     <div class="card-summary">
                         <h4>Sales Dashboard</h4>
                         <p>Analyzed sales data to build a dynamic Excel dashboard, identifying key revenue drivers and suggesting optimized discount strategies for an e-commerce platform.</p>
-                        <a href="#" class="link-btn" target="_blank" rel="noopener">View Project</a>
+                        <a href="#" class="link-btn">View Project</a>
                     </div>
                     <div class="card-inner">
                         <div class="card-visual">
@@ -106,7 +94,7 @@
                     <div class="card-summary">
                         <h4>Pima Dataset</h4>
                         <p>Cleaned and prepared the Pima Diabetes dataset for statistical analysis using JASP, applying median imputation and removing outliers to ensure data integrity.</p>
-                        <a href="#" class="link-btn" target="_blank" rel="noopener">View Project</a>
+                        <a href="#" class="link-btn">View Project</a>
                     </div>
                     <div class="card-inner">
                         <div class="card-visual">
@@ -134,7 +122,7 @@
                     <div class="card-summary">
                         <h4>Budget Audit</h4>
                         <p>Audited a student government budget of over ₱2M, verifying transactions and creating transparent reports to enhance fiscal governance and accountability.</p>
-                        <a href="#" class="link-btn" target="_blank" rel="noopener">View Project</a>
+                        <a href="#" class="link-btn">View Project</a>
                     </div>
                     <div class="card-inner">
                         <div class="card-visual">
@@ -159,7 +147,7 @@
                     <div class="card-summary">
                         <h4>Data Structuring</h4>
                         <p>Structured multilingual genealogical records and segmented audio using Praat, significantly increasing dataset usability and reducing downstream processing time.</p>
-                        <a href="#" class="link-btn" target="_blank" rel="noopener">View Project</a>
+                        <a href="#" class="link-btn">View Project</a>
                     </div>
                     <div class="card-inner">
                         <div class="card-visual">
@@ -179,7 +167,7 @@
                     <div class="card-summary">
                         <h4>Future SQL Project</h4>
                         <p>A planned project showcasing advanced SQL queries to extract valuable insights from large, complex relational databases using joins, aggregation, and window functions.</p>
-                        <a href="#" class="link-btn" target="_blank" rel="noopener">View Project</a>
+                        <a href="#" class="link-btn">View Project</a>
                     </div>
                     <div class="card-inner">
                         <div class="card-visual flex-center-visual">
@@ -199,7 +187,7 @@
                     <div class="card-summary">
                         <h4>Future Visualization</h4>
                         <p>A future project to present business metrics and user-driven filters in an interactive dashboard built with tools like Tableau or Power BI.</p>
-                        <a href="#" class="link-btn" target="_blank" rel="noopener">View Project</a>
+                        <a href="#" class="link-btn">View Project</a>
                     </div>
                     <div class="card-inner">
                         <div class="card-visual flex-center-visual">
@@ -219,6 +207,7 @@
                 </article>
             </div>
         </section>
+
         <!-- New Contacts Section -->
         <section id="contacts">
             <h2>Contact Me</h2>
@@ -232,7 +221,7 @@
                     <h3 class="p-title">Email</h3>
                     <p class="p-desc">markanthony.nene18@gmail.com</p>
                 </a>
-                <a href="https://www.linkedin.com/in/mark-anthony-nene-072964371/" target="_blank" class="contact-item" aria-label="View Mark Anthony Nene's profile on LinkedIn">
+                <a href="https://www.linkedin.com/in/mark-anthony-nene-072964371/" target="_blank" rel="noopener noreferrer" class="contact-item" aria-label="View Mark Anthony Nene's profile on LinkedIn">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                         <title>LinkedIn icon</title>
                         <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.766s.784-1.767 1.75-1.767 1.75.791 1.75 1.767-.783 1.766-1.75 1.766zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.671 7 2.358v6.877z" />
@@ -240,16 +229,17 @@
                     <h3 class="p-title">LinkedIn</h3>
                     <p class="p-desc">linkedin.com/in/mark-anthony-nene</p>
                 </a>
-                <a href="https://github.com/yourgithub" target="_blank" class="contact-item" aria-label="View Mark Anthony Nene's profile on GitHub">
+                <a href="https://github.com/Rhyxeee" target="_blank" rel="noopener noreferrer" class="contact-item" aria-label="View Mark Anthony Nene's profile on GitHub">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                         <title>GitHub icon</title>
                         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.809 1.309 3.492.997.107-.775.418-1.309.762-1.605-2.665-.299-5.466-1.332-5.466-5.93 0-1.314.465-2.384 1.235-3.221-.135-.303-.541-1.523.111-3.176 0 0 1.006-.322 3.301 1.231.956-.266 1.983-.399 3.003-.404 1.02.005 2.046.138 3.006.404 2.291-1.553 3.297-1.231 3.297-1.231.654 1.653.248 2.873.111 3.176.77.837 1.233 1.907 1.233 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.197-6.091 8.197-11.385 0-6.627-5.373-12-12-12z" />
                     </svg>
                     <h3 class="p-title">GitHub</h3>
-                    <p class="p-desc">github.com/yourgithub</p>
+                    <p class="p-desc">github.com/Rhyxeee</p>
                 </a>
             </div>
         </section>
+
         <!-- Modals -->
         <div class="modal-back" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
             <div class="modal">
@@ -263,10 +253,11 @@
         <div class="profile-modal-back" aria-hidden="true" role="dialog" aria-label="Profile image dialog">
             <div class="profile-modal-content" tabindex="-1">
                 <button class="profile-modal-close" aria-label="Close profile picture modal">×</button>
-                <img src="https://uploads.onecompiler.io/43x5j6u93/43x5hb7dc/2X2%20-%201%20-%20Edited.png" alt="Mark Anthony Nene Profile Picture" loading="lazy">
+                <img src="images/profile.png" alt="Mark Anthony Nene Profile Picture" loading="lazy">
             </div>
         </div>
     </div>
+
     <!-- Floating Navigation Bar -->
     <div class="floating-nav-wrapper">
         <nav class="floating-nav" aria-label="Main navigation">
@@ -280,9 +271,6 @@
     <footer>
         <p>&copy; 2024 Mark Anthony Nene. All Rights Reserved.</p>
     </footer>
+    <script src="scripts.js"></script>
 </body>
-
-
 </html>
-
-
