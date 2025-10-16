@@ -140,10 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: true });
 
-
-
-  // --- PROFILE MODAL FEATURE START ---
-
 const profileLogo = document.getElementById('profileLogo');
 const profileModalBack = document.querySelector('.profile-modal-back');
 const profileModalClose = document.querySelector('.profile-modal-close');
@@ -191,13 +187,10 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// --- PROFILE MODAL FEATURE END ---
-
-// --- AUTO-HIDE NAVIGATION FEATURE START ---
 const NAV_WRAPPER_SELECTOR = '.floating-nav-wrapper';
 const HIDDEN_CLASS = 'hidden-nav';
-const SCROLL_HIDE_DELAY = 550; // ms to wait before showing nav after scroll stops
-const SCROLL_THRESHOLD = 5; // minimum pixels to trigger hide
+const SCROLL_HIDE_DELAY = 550;
+const SCROLL_THRESHOLD = 5;
 
 const navWrapper = document.querySelector(NAV_WRAPPER_SELECTOR);
 
@@ -206,8 +199,7 @@ if (navWrapper) {
     let lastScrollY = window.scrollY;
     let scrollTimeout = null;
     let scrollTicking = false;
-    
-    // Check for reduced motion preference
+
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
     function hideNav() {
@@ -227,31 +219,26 @@ if (navWrapper) {
     function handleScrollForNav() {
         const currentScrollY = window.scrollY;
         const scrollDifference = Math.abs(currentScrollY - lastScrollY);
-        
-        // Only process if scroll difference is significant
+
         if (scrollDifference < SCROLL_THRESHOLD) {
             return;
         }
-        
-        // Hide nav immediately on scroll
+
         if (!isNavHidden) {
             hideNav();
         }
-        
-        // Clear existing timeout
+
         if (scrollTimeout) {
             clearTimeout(scrollTimeout);
         }
-        
-        // Set timeout to show nav after scroll stops
+
         scrollTimeout = setTimeout(() => {
             showNav();
         }, SCROLL_HIDE_DELAY);
         
         lastScrollY = currentScrollY;
     }
-    
-    // Throttled scroll handler using requestAnimationFrame
+
     window.addEventListener('scroll', () => {
         if (!scrollTicking) {
             requestAnimationFrame(() => {
@@ -261,20 +248,17 @@ if (navWrapper) {
             scrollTicking = true;
         }
     }, { passive: true });
-    
-    // Show nav on hover
+
     navWrapper.addEventListener('mouseenter', () => {
         showNav();
         if (scrollTimeout) clearTimeout(scrollTimeout);
     });
-    
-    // Show nav on focus
+
     navWrapper.addEventListener('focusin', () => {
         showNav();
         if (scrollTimeout) clearTimeout(scrollTimeout);
     });
-    
-    // Reset hide timer when user stops interacting
+
     navWrapper.addEventListener('mouseleave', () => {
         if (scrollTimeout) clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
@@ -286,7 +270,7 @@ if (navWrapper) {
     
     if (DEBUG) console.log('Auto-hide navigation initialized');
 }
-// --- AUTO-HIDE NAVIGATION FEATURE END ---
 
 
 });
+
