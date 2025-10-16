@@ -258,7 +258,7 @@ if (navWrapper) {
         showNav();
         if (scrollTimeout) clearTimeout(scrollTimeout);
     });
-
+    
     navWrapper.addEventListener('mouseleave', () => {
         if (scrollTimeout) clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
@@ -271,6 +271,4 @@ if (navWrapper) {
     if (DEBUG) console.log('Auto-hide navigation initialized');
 }
 
-
 });
-
