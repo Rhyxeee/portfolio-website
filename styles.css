@@ -505,8 +505,9 @@ footer{
 
 @media (max-width: 639px) {
   html { font-size: 87.5%; }
+  .wrap { padding-left: 1rem; padding-right: 1rem; }
   .grid { grid-template-columns: 1fr; }
-  .floating-nav-wrapper { bottom: 12px; left: 8px; right: 8px; padding: 0;}
+  .floating-nav-wrapper { bottom: 12px; left: 16px; right: 16px; padding: 0;}
   .floating-nav {
     display: flex !important;
     flex-direction: row !important;
@@ -528,8 +529,9 @@ footer{
 
 @media (min-width: 640px) and (max-width: 1023px) {
   html { font-size: 93.75%; }
+  .wrap { padding-left: 1.5rem; padding-right: 1.5rem; }
   .grid { grid-template-columns: repeat(2, 1fr); }
-  .floating-nav { padding: 10px 24px; }
+  .floating-nav { padding: 10px 24px; left: 24px; right: 24px}
   header { padding: 16px clamp(1rem, 5vw, 2rem); }
 }
 
@@ -564,3 +566,4 @@ footer{
     3.5rem
   );
 }
+
