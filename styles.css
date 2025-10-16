@@ -527,6 +527,13 @@ footer{
     margin-left: 0;
     margin-right: 0;
   }
+  .card:hover .card-inner,
+  .card:hover .card-summary {
+  transform: none !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
   .grid {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -546,6 +553,16 @@ footer{
     position: relative;
     inset: auto;
     padding: 12px;
+    opacity: 1;
+  }
+  .card .card-summary {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  }
+  .card.flipped .card-inner {
+    display: none;
+  }
+  .card.flipped .card-summary {
     opacity: 1;
   }
   .floating-nav-wrapper {
