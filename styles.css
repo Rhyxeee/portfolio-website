@@ -1,6 +1,3 @@
-/* ========================================================================= */
-/* BASE & GLOBAL STYLES */
-/* ========================================================================= */
 :root{
   --bg:#0f1724;
   --card:#0b1220;
@@ -66,16 +63,13 @@ header{ animation-delay:0s; }
 footer{ animation-delay:0.8s; }
 
 
-/* Skip-link styles */
 .skip-link{position:absolute;left:-9999px}
 .skip-link:focus{left:12px;top:12px;background:#000;color:#fff;padding:8px 12px;border-radius:6px;z-index:200}
 
-/* Focus state for accessibility */
 :focus{ outline:none; }
 :focus-visible{ outline:3px solid rgba(6,182,212,0.22); outline-offset:3px; }
 .link-btn:focus, .btn:focus{ outline:2px solid var(--accent); outline-offset:2px; }
 
-/* Layout wrapper */
 .wrap{
   width:100%;
   padding:clamp(1.5rem,5vw,2.5rem);
@@ -88,13 +82,9 @@ footer{ animation-delay:0.8s; }
   max-width: 100%;
   object-fit: contain;
   border-radius: 8px;
-  display: block;       /* if needed to prevent inline gaps */
+  display: block;
 }
 
-
-/* ========================================================================= */
-/* HEADER & NAVIGATION */
-/* ========================================================================= */
 header{
   display:flex;
   flex-direction:column;
@@ -141,7 +131,6 @@ header{
 h1{ font-size:24px; margin:0; }
 .subtitle{ color:var(--muted); font-size:16px; margin-top:4px; }
 
-/* Hero content */
 .hero-content{ display:flex; flex-direction:column; gap:12px; }
 .hero-content h2{ font-size:clamp(28px,5vw,42px); margin:0; }
 .hero-content .subtitle{ font-size:clamp(16px,2.5vw,20px); margin-top:0; }
@@ -166,9 +155,6 @@ h1{ font-size:24px; margin:0; }
 }
 .btn-outline:hover{ box-shadow:0 0 12px rgba(255,255,255,0.4); transform:translateY(-3px); }
 
-/* ========================================================================= */
-/* PROJECTS GRID & CARDS */
-/* ========================================================================= */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
@@ -259,7 +245,7 @@ h1{ font-size:24px; margin:0; }
 section {
   padding-top: 20px;
   padding-bottom: 20px;
-  min-height: 250px; /* Ensures each section is tall enough to be detected */
+  min-height: 250px;
 }
 
 @media (max-width:350px){
@@ -270,7 +256,6 @@ section {
   }
 }
 
-/* Contacts */
 .contacts-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
@@ -297,9 +282,6 @@ section {
 }
 .contact-item svg{ width:48px; height:48px; margin-bottom:12px; color:var(--accent); }
 
-/* ========================================================================= */
-/* FOOTER */
-/* ========================================================================= */
 footer{
   margin-top:28px;
   color:var(--muted);
@@ -308,9 +290,6 @@ footer{
   padding:18px 0 100px 0;
 }
 
-/* ========================================================================= */
-/* MODALS */
-/* ========================================================================= */
 .modal-back, .profile-modal-back{
   position: fixed;
   inset: 0;
@@ -353,9 +332,9 @@ footer{
   position: relative;
   background: rgba(23,28,36,0.98);
   border-radius: 12px;
-  padding: clamp(2rem, 5vw, 2.25rem);       /* More padding to create space for × */
-  padding-top: 3rem;   /* Extra top padding for close button */
-  padding-right: 3rem; /* Extra right padding for close button */
+  padding: clamp(2rem, 5vw, 2.25rem);
+  padding-top: 3rem;
+  padding-right: 3rem;
   max-width: min(90vw, 520px);
   max-height: min(80vh, 520px);
   display: flex;
@@ -367,15 +346,15 @@ footer{
   width: 100%;
   height: auto;
   max-width: 100%;
-  max-height: 72vh; /* JS will set precise maxHeight on open */
+  max-height: 72vh;
   object-fit: contain;
   border-radius: 8px;
   display:block;
 }
 .profile-modal-close{
   position: absolute;
-  top: 1.1rem;       /* Pushes the x button further down */
-  right: 1.25rem;    /* Push the button further in from the right */
+  top: 1.1rem;
+  right: 1.25rem;
   z-index: 10;
   background:rgba(255,255,255,0.1);
   color:#fff;
@@ -393,33 +372,27 @@ footer{
 }
 .profile-modal-close:hover{ background:rgba(255,255,255,0.2); }
 
-/* ========================================================================= */
-/* DYNAMIC FLOATING NAV */
-/* ========================================================================= */
 .floating-nav-wrapper{
     position:fixed;
     bottom:20px;
     left:0;
     right:0;
     z-index:50;
-    
-    /* OPTIMIZED: Use hardware acceleration */
+
     will-change: transform, opacity;
-    transform: translate3d(0, 0, 0);  /* Forces GPU layer */
+    transform: translate3d(0, 0, 0);
     opacity:1;
-    
-    /* OPTIMIZED: Smoother timing function */
+
     transition: opacity 280ms cubic-bezier(0.4, 0.0, 0.2, 1),
                 transform 280ms cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .floating-nav-wrapper.hidden-nav{ 
     opacity:0; 
-    transform:translate3d(0, 100px, 0);  /* Hardware accelerated slide */
+    transform:translate3d(0, 100px, 0);
     pointer-events:none; 
 }
 
-/* Reduced motion support */
 @media (prefers-reduced-motion: reduce){
     .floating-nav-wrapper {
         transition: opacity 150ms ease !important;
@@ -427,7 +400,7 @@ footer{
     }
     
     .floating-nav-wrapper.hidden-nav {
-        opacity: 0.3 !important;  /* Dimmed instead of hidden */
+        opacity: 0.3 !important;
         transform: none !important;
     }
 }
@@ -483,7 +456,6 @@ footer{
   transform: translateY(-2px);
 }
 
-/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .floating-nav-wrapper,
   .floating-nav-wrapper.hidden-nav {
@@ -494,9 +466,6 @@ footer{
   }
 }
 
-/* ========================================================================= */
-/* RESPONSIVE STYLES */
-/* ========================================================================= */
 @media (max-width:640px){
   header{ flex-direction:column; align-items:flex-start; gap:20px; padding-top:10px; }
   .header-top{ flex-direction:column; align-items:flex-start; gap:10px; width:100%; }
@@ -511,10 +480,6 @@ footer{
   body::before{ animation:none; background:radial-gradient(circle at 10% 20%, #0c1a2c, #0b1220 80%); }
 }
 
-
-/* ========================================================================= */
-/* SCROLL TO TOP BUTTON */
-/* ========================================================================= */
 #scrollTopBtn{
   position:fixed;
   bottom:80px;
@@ -535,66 +500,50 @@ footer{
 }
 #scrollTopBtn.show{ opacity:1; transform:translateY(0); }
 
-/* Re-usable */
 .no-margin-top{ margin-top:0; }
 .small{ font-size:14px; margin-bottom:12px; }
 
-/* ========================================================================= */
-/* RESPONSIVE ADAPTIVITY */
-/* ========================================================================= */
-
-/* 1. Smartphones (portrait, up to 639px) */
 @media (max-width: 639px) {
-  /* Single‐column projects */
   .grid {
     grid-template-columns: 1fr;
   }
 
-  /* Stack floating nav vertically */
   .floating-nav {
     flex-direction: column;
     gap: 8px;
   }
 
-  /* Shrink hero text */
   .hero-content h2 {
     font-size: clamp(1.75rem, 6vw, 2.5rem);
   }
 }
 
-/* 2. Phablets & small tablets (640px to 1023px) */
 @media (min-width: 640px) and (max-width: 1023px) {
-  /* Two‐column projects */
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Moderate floating nav padding */
   .floating-nav {
     padding: 10px 24px;
   }
 
-  /* Increase header padding */
   header {
     padding: 16px clamp(1rem, 5vw, 2rem);
   }
 }
 
-/* 3. Desktops & large screens (1024px and up) */
 @media (min-width: 1024px) {
-  /* Auto-fit for project cards */
   .grid {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 
-  /* Standard floating nav */
   .floating-nav {
     flex-direction: row;
     padding: 12px 32px;
   }
 
-  /* Bigger hero heading */
   .hero-content h2 {
     font-size: clamp(2.5rem, 4vw, 3.5rem);
   }
 }
+
