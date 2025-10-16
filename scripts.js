@@ -161,6 +161,14 @@ function closeProfileModal() {
   profileLogo.focus();
 }
 
+if (window.matchMedia("(max-width: 639px)").matches) {
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('flipped');
+    });
+  });
+}
+  
 if (profileLogo) {
   profileLogo.addEventListener('click', openProfileModal);
   profileLogo.addEventListener('keypress', e => {
@@ -272,3 +280,4 @@ if (navWrapper) {
 }
 
 });
+
