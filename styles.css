@@ -505,6 +505,11 @@ footer{
 
 @media (max-width: 639px) {
   html { font-size: 87.5%; }
+  .card { height: auto; display: flex; flex-direction: column; }
+  .card-visual { aspect-ratio: 1 / 1; width: 100%; height: auto; max-height: none; }
+  .card-inner,
+  .card-summary { position: relative; inset: auto; padding: 12px; }
+  .card-summary { opacity: 1; }
   .wrap { padding-left: 1rem; padding-right: 1rem; }
   .grid { grid-template-columns: 1fr; }
   .floating-nav-wrapper { bottom: 12px; left: 16px; right: 16px; padding: 0;}
@@ -566,4 +571,5 @@ footer{
     3.5rem
   );
 }
+
 
