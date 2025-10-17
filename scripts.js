@@ -163,12 +163,13 @@ function closeProfileModal() {
 
 if (window.matchMedia("(max-width: 639px)").matches) {
   document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('click', () => {
+    card.addEventListener('click', e => {
+      if (e.target.closest('.view-project-btn')) return;
       card.classList.toggle('flipped');
     });
   });
 }
-  
+
 if (profileLogo) {
   profileLogo.addEventListener('click', openProfileModal);
   profileLogo.addEventListener('keypress', e => {
@@ -199,7 +200,7 @@ const NAV_WRAPPER_SELECTOR = '.floating-nav-wrapper';
 const HIDDEN_CLASS = 'hidden-nav';
 const SCROLL_HIDE_DELAY = 550;
 const SCROLL_THRESHOLD = 5;
-
+const AFK_SHOW_DELAY = 15000;
 const navWrapper = document.querySelector(NAV_WRAPPER_SELECTOR);
 
 if (navWrapper) {
@@ -207,44 +208,49 @@ if (navWrapper) {
     let lastScrollY = window.scrollY;
     let scrollTimeout = null;
     let scrollTicking = false;
+    let afkTimer = null;
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
+
     function hideNav() {
         if (isNavHidden) return;
         navWrapper.classList.add(HIDDEN_CLASS);
         isNavHidden = true;
         if (DEBUG) console.log('Nav hidden');
     }
-    
+
     function showNav() {
         if (!isNavHidden) return;
         navWrapper.classList.remove(HIDDEN_CLASS);
         isNavHidden = false;
         if (DEBUG) console.log('Nav shown');
     }
-    
+
     function handleScrollForNav() {
         const currentScrollY = window.scrollY;
         const scrollDifference = Math.abs(currentScrollY - lastScrollY);
 
-        if (scrollDifference < SCROLL_THRESHOLD) {
-            return;
-        }
+        if (scrollDifference < SCROLL_THRESHOLD) return;
 
-        if (!isNavHidden) {
-            hideNav();
-        }
+        if (!isNavHidden) hideNav();
 
-        if (scrollTimeout) {
-            clearTimeout(scrollTimeout);
-        }
+        if (scrollTimeout) clearTimeout(scrollTimeout);
 
         scrollTimeout = setTimeout(() => {
             showNav();
         }, SCROLL_HIDE_DELAY);
-        
+
         lastScrollY = currentScrollY;
+    }
+
+    function startAfkTimer() {
+        if (afkTimer) clearTimeout(afkTimer);
+        afkTimer = setTimeout(() => {
+            if (isNavHidden) {
+                showNav();
+                if (DEBUG) console.log('Nav shown after AFK');
+            }
+        }, AFK_SHOW_DELAY);
     }
 
     window.addEventListener('scroll', () => {
@@ -255,6 +261,7 @@ if (navWrapper) {
             });
             scrollTicking = true;
         }
+        startAfkTimer();
     }, { passive: true });
 
     navWrapper.addEventListener('mouseenter', () => {
@@ -266,7 +273,7 @@ if (navWrapper) {
         showNav();
         if (scrollTimeout) clearTimeout(scrollTimeout);
     });
-    
+
     navWrapper.addEventListener('mouseleave', () => {
         if (scrollTimeout) clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
@@ -275,9 +282,21 @@ if (navWrapper) {
             }
         }, SCROLL_HIDE_DELAY * 2);
     });
-    
-    if (DEBUG) console.log('Auto-hide navigation initialized');
+
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && isNavHidden) {
+            showNav();
+            if (DEBUG) console.log('Nav shown after tab switch');
+        }
+    });
+
+    ['mousemove', 'touchstart', 'keydown'].forEach(evt =>
+        window.addEventListener(evt, startAfkTimer, { passive: true })
+    );
+
+    startAfkTimer();
+
+    if (DEBUG) console.log('Auto-hide navigation initialized with AFK timer');
 }
 
 });
-
