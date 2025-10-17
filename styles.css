@@ -567,15 +567,26 @@ footer{
     padding: 0 1rem;
   }
 
-  .wrap, .grid, .contacts-grid {
+  .wrap {
     padding: 1rem;
     box-sizing: border-box;
     margin-right: 2.25rem;
   }
-  .grid, .contacts-grid {
+  .grid {
+    padding: 1rem;
+    box-sizing: border-box;
     grid-template-columns: 1fr !important;
     gap: 0.75rem;
+    margin-right: 2.25rem;
   }
+  .contacts-grid {
+    padding: 1rem;
+    box-sizing: border-box;
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem;
+    margin-right: 0rem;
+  }
+  
   .floating-nav-wrapper { bottom:12px; left:16px; right:16px; padding:0; }
   .floating-nav {
     display:flex!important;
@@ -630,5 +641,6 @@ footer{
     3.5rem
   );
 }
+
 
 
