@@ -568,7 +568,7 @@ footer{
   }
 
   .wrap, .grid, .contacts-grid {
-    padding: 0.90rem;
+    padding: 1rem;
     box-sizing: border-box;
     margin-right: 2.25rem;
   }
@@ -630,4 +630,5 @@ footer{
     3.5rem
   );
 }
+
 
