@@ -6,6 +6,7 @@ const projects = [
         description: "Sales Performance Analytics Dashboard (Excel)",
         fullDescription: "Analyzed sales data to build a dynamic Excel dashboard, identifying key revenue drivers and suggesting optimized discount strategies for an e-commerce platform.",
         icon: "bar-chart-3",
+        image: "images/card-1-sales.png",
     },
     {
         id: 2,
@@ -13,6 +14,7 @@ const projects = [
         description: "Pima Diabetes Dataset Preprocessing (JASP)",
         fullDescription: "Cleaned and prepared the Pima Diabetes dataset for statistical analysis using JASP, applying median imputation and removing outliers to ensure data integrity.",
         icon: "line-chart",
+        image: "images/card-3-pima.png",
     },
     {
         id: 3,
@@ -20,6 +22,7 @@ const projects = [
         description: "Financial Audit & Budget Transparency (₱2M+)",
         fullDescription: "Audited a student government budget of over ₱2M, verifying transactions and creating transparent reports to enhance fiscal governance and accountability.",
         icon: "dollar-sign",
+        image: "images/card-6-audit.png",
     },
     {
         id: 4,
@@ -27,6 +30,7 @@ const projects = [
         description: "Speech Segmentation & Genealogical Data Cleaning",
         fullDescription: "Structured multilingual genealogical records and segmented audio using Praat, significantly increasing dataset usability and reducing downstream processing time.",
         icon: "package",
+        image: "images/card-2-cleaning.png",
     },
     {
         id: 5,
@@ -34,6 +38,7 @@ const projects = [
         description: "Advanced database analytics",
         fullDescription: "A planned project showcasing advanced SQL queries to extract valuable insights from large, complex relational databases using joins, aggregation, and window functions.",
         icon: "database",
+        image: "images/card-4-sql.png",
     },
     {
         id: 6,
@@ -41,6 +46,7 @@ const projects = [
         description: "Interactive business dashboard",
         fullDescription: "A future project to present business metrics and user-driven filters in an interactive dashboard built with tools like Tableau or Power BI.",
         icon: "trending-down",
+        image: "images/card-5-visualization.png",
     }
 ];
 
@@ -60,9 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('article');
             card.className = 'card';
             card.innerHTML = `
-                <div class="card-visual">
-                    <i data-lucide="${project.icon}"></i>
-                </div>
+                ${project.image ? `<img src="${project.image}" alt="${project.title}" class="card-image" loading="lazy">` : `<div class="card-visual"><i data-lucide="${project.icon}"></i></div>`}
                 <h3 class="p-title">${project.title}</h3>
                 <p class="p-desc">${project.description}</p>
                 <div class="card-summary">
