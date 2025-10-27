@@ -1394,12 +1394,11 @@ textarea.error + .field-error {
 .card-image {
   width: 100%;
   height: 200px;
-  object-fit: cover;
+  object-fit: contain;  /* show the whole image (letterbox effect) */
+  background: #222;      /* optional: dark bg for letterboxing */
   border-radius: 12px 12px 0 0;
   margin-bottom: 1rem;
 }
-
-
 /* Card Elements with Order */
 .p-title {
   order: 3;
@@ -3641,3 +3640,4 @@ a {
 a:visited {
   color: var(--color-primary);
 }
+
