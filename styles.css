@@ -1,3 +1,4 @@
+
 /* ========================================================================
    TABLE OF CONTENTS
    ========================================================================
@@ -1949,48 +1950,45 @@ body.body-no-scroll {
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: var(--space-12); /* Increased gap between nav items */
-  background: var(--color-surface);
+  gap: var(--space-32);
+  background: var(--color-white);
   border: 1px solid var(--color-card-border);
   border-radius: 36px;
-  padding: var(--space-8) var(--space-24); /* Reduced vertical padding to decrease height */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 8px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   z-index: 999;
   transition: all var(--duration-normal) var(--ease-standard);
 }
 
 .floating-nav:hover {
-  box-shadow: 0 8px 24px rgba(var(--color-primary-rgb), 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .nav-item {
   display: flex;
-  flex-direction: row; /* Arrange icon and text side-by-side */
   align-items: center;
   justify-content: center;
-  gap: var(--space-8); /* Increase space between icon and text */
-  padding: var(--space-8) var(--space-16); /* Adjust padding for new layout */
-  color: var(--color-text-secondary);
+  gap: 8px;
+  padding: 8px 12px;
+  color: var(--color-text);
   text-decoration: none;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  border-radius: var(--radius-base);
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 20px;
   transition: all var(--duration-fast) var(--ease-standard);
   cursor: pointer;
+  border: none;
 }
 
 .nav-item:hover {
-  color: var(--color-primary);
-  background: rgba(var(--color-primary-rgb), 0.1);
-  transform: translateY(-2px);
+  background: rgba(200, 200, 200, 0.1);
+  color: var(--color-text);
 }
 
 .nav-item.active {
-  color: var(--color-primary);
-  background: rgba(var(--color-primary-rgb), 0.15);
+  background: var(--color-blue-500);
+  color: white;
+  box-shadow: 0 0 20px rgba(25, 118, 210, 0.3);
 }
 
 .nav-icon {
@@ -1999,10 +1997,14 @@ body.body-no-scroll {
   justify-content: center;
   width: 18px; /* A more visible size */
   height: 18px; /* A more visible size */
+  stroke-width: 2;
 }
 
 .nav-text {
-  white-space: nowrap
+  display: inline;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
 }
 
 /* ========================================================================
@@ -3640,4 +3642,3 @@ a {
 a:visited {
   color: var(--color-primary);
 }
-
