@@ -93,38 +93,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Scroll Animations & Active Nav
     function handleScroll() {
-        const scrollPosition = window.scrollY;
-
-        // Section visibility animation
-        sections.forEach(section => {
-            const rect = section.getBoundingClientRect();
-            if (rect.top < window.innerHeight * 0.75 && !section.classList.contains('visible')) {
-                section.classList.add('visible');
-                
-                // Animate skills only when the about section is visible
-                if (section.id === 'about') {
-                    section.querySelectorAll('.skill-item').forEach(skill => {
-                        skill.classList.add('visible');
-                    });
-                }
-            }
-
-            // Update active nav item
-            if (rect.top <= 150 && rect.bottom >= 150) {
-                navItems.forEach(item => item.classList.remove('active'));
-                const activeNav = document.querySelector(`.nav-item[data-section="${section.id}"]`);
-                if (activeNav) activeNav.classList.add('active');
-            }
-        });
-
-        // Scroll-to-top button visibility
-        if (scrollTopBtn) {
-            if (scrollPosition > 300) {
-                scrollTopBtn.classList.add('visible');
-            } else {
-                scrollTopBtn.classList.remove('visible');
-            }
+      const scrollPosition = window.scrollY;
+      const scrollTopBtn = document.getElementById('scrollTop');
+    
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.75 && !section.classList.contains('visible')) {
+          section.classList.add('visible');
+          
+          // Animate skills when about section is visible
+          if (section.id === 'about') {
+            section.querySelectorAll('.skill-item').forEach(skill => {
+              skill.classList.add('visible');
+            });
+          }
         }
+    
+        // Update active nav item
+        if (rect.top <= 150 && rect.bottom >= 150) {
+          navItems.forEach(item => item.classList.remove('active'));
+          const activeNav = document.querySelector(`.nav-item[data-section="${section.id}"]`);
+          if (activeNav) activeNav.classList.add('active');
+        }
+      });
+    
+      // Scroll-to-top button visibility
+      if (scrollTopBtn) {
+        // Show button only after scrolling 180px DOWN (hide on hero section)
+        if (scrollPosition > 180) {
+          scrollTopBtn.classList.add('visible');
+        } else {
+          scrollTopBtn.classList.remove('visible');
+        }
+      }
     }
 
     // 3. Modal Handling
