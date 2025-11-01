@@ -1,24 +1,25 @@
-
 /* ========================================================================
    TABLE OF CONTENTS
    ========================================================================
-   1. ROOT VARIABLES
-   2. GLOBAL STYLES & RESETS
-   3. TYPOGRAPHY
-   4. FORM ELEMENTS
-   5. BUTTONS
-   6. UTILITY CLASSES
-   7. HERO SECTION
-   8. ABOUT SECTION
-   9. PROJECTS SECTION
-   10. CONTACT SECTION
-   11. NAVIGATION
-   12. MODALS
-   13. SCROLL TO TOP
-   14. FOOTER
-   15. ANIMATIONS & EFFECTS
-   16. MOBILE RESPONSIVE
-   ======================================================================== */
+   
+   1. CSS RESET & GLOBAL RULES
+   2. ROOT VARIABLES (Colors, Typography, Spacing, Animations)
+   3. TYPOGRAPHY (Headings, Paragraphs, Links, Code)
+   4. FORM ELEMENTS (Inputs, Textareas, Validation, Error Messages)
+   5. BUTTONS (All Button Variants & States)
+   6. UTILITY CLASSES (Flexbox, Spacing, Display Helpers)
+   7. HERO SECTION (Hero Container & Content)
+   8. ABOUT SECTION (About Content, Achievements, Skills)
+   9. PROJECTS SECTION (Projects Grid & Cards)
+   10. CONTACT SECTION (Contact Info, Form, Containers)
+   11. NAVIGATION & SCROLL-TO-TOP (Floating Nav, Scroll Button)
+   12. MODALS (Modal Container, Content, Animations)
+   13. ANIMATIONS & KEYFRAMES (All Animations Defined Here)
+   14. RESPONSIVE MEDIA QUERIES (All Breakpoints Organized)
+   15. DARK MODE (System Preference & Color Overrides)
+   16. FINAL TWEAKS & ACCESSIBILITY (Print, Focus, Scrollbar)
+   
+======================================================================== */
 
 /* ========================================================================
    1. ROOT VARIABLES
@@ -1398,8 +1399,7 @@ textarea.error + .field-error {
   object-fit: cover;  /* show the whole image (letterbox effect) */
   background: #222;      /* optional: dark bg for letterboxing */
   border-radius: 12px 12px 0 0;
-  margin-bottom: 0;        /* ← CHANGED: remove margin bottom */
-  display: block;
+  margin-bottom: 1rem;
 }
 /* Card Elements with Order */
 .p-title {
@@ -1518,6 +1518,50 @@ textarea.error + .field-error {
 
 /* ========== MOBILE RESPONSIVE ========== */
 @media (max-width: 768px) {
+  /* ===== MOBILE CONTACT - VERTICAL STACKING ===== */
+  .contact-info-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  .contact-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    flex: none !important;
+  }
+
+  .contact-card h3 {
+    font-size: var(--font-size-sm) !important;
+    margin: 0 !important;
+    text-align: center !important;
+  }
+
+  .contact-details {
+    display: none !important;
+  }
+
+  .contact-icon {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
   .projects-grid {
     grid-template-columns: 1fr;
   }
@@ -1533,6 +1577,168 @@ textarea.error + .field-error {
   .p-desc {
     font-size: var(--font-size-sm);
   }
+
+/* ===== ADD BOTTOM SPACING TO SECTION BOXES (Mobile Only) ===== */
+
+/* Padding format: [TOP] [RIGHT] [BOTTOM] [LEFT] */
+
+.about-box {
+  padding: var(--space-20) var(--space-12) var(--space-24) var(--space-12) !important;
+}
+
+.projects-box {
+  padding: var(--space-20) var(--space-12) var(--space-24) var(--space-12) !important;
+}
+
+.contact-box {
+  padding: var(--space-20) var(--space-12) var(--space-24) var(--space-12) !important;
+}
+
+/* ===== SECTION TITLE TOP SPACING (Mobile Only) ===== */
+
+.section-title {
+  font-size: var(--font-size-lg);
+  margin-top: var(--space-24) !important;     /* Adds breathing room at top */
+  margin-bottom: var(--space-16) !important;
+}
+
+.section-subtitle {
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-20);
+  margin-top: var(--space-12) !important;     /* Adds space above subtitle */
+}
+
+/* ===== ADD BOTTOM PADDING INSIDE SECTION BOXES (Mobile Only) ===== */
+
+.about-intro {
+  padding-bottom: 0px !important;
+}
+
+.achievements-section {
+  padding-bottom: var(--space-20) !important;
+}
+
+.skills-section {
+  padding-bottom: var(--space-20) !important;
+}
+
+.projects-grid {
+  padding-bottom: var(--space-20) !important;
+}
+
+.contact-container {
+  padding-bottom: var(--space-20) !important;
+}
+
+/* ===== HERO SECTION - CENTER & ENLARGE (Mobile Only) ===== */
+
+.hero {
+  text-align: center;
+}
+
+.hero-top {
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.hero-profile {
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Enlarge profile image */
+.profile-image {
+  width: 140px !important;
+  height: 140px !important;
+  margin: 0 auto !important;
+}
+
+.hero-info {
+  text-align: center !important;
+}
+
+.hero-info h1 {
+  text-align: center !important;
+}
+
+.hero-headline {
+  text-align: center !important;
+}
+
+.hero-sub-headline {
+  text-align: center !important;
+}
+
+/* ===== DOWNLOAD BUTTON - REDUCE SIZE (Mobile Only) ===== */
+
+.download-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: var(--space-6) !important;
+  padding: 10px 20px !important;           /* Smaller padding */
+  width: fit-content !important;
+  max-width: 280px !important;             /* Limit width */
+  margin: 30px auto 0 !important;          /* Center, reduce top margin */
+  background: var(--color-primary) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 24px !important;
+  font-size: 0.95rem !important;           /* Smaller font */
+  font-weight: var(--font-weight-semibold) !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  transition: all var(--duration-normal) var(--ease-standard) !important;
+  white-space: nowrap !important;
+}
+
+.download-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3) !important;
+}
+
+.download-btn i,
+.download-btn svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* ===== ACHIEVEMENTS - LEFT ALIGN WITH BULLETS (Mobile Only) ===== */
+
+.achievement-item {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  gap: var(--space-8) !important;
+  padding: 0 !important;
+  margin-bottom: var(--space-12) !important;
+}
+
+.achievement-item::before {
+  content: '' !important;
+  min-width: 8px !important;
+  width: 8px !important;
+  height: 8px !important;
+  background: var(--color-primary) !important;
+  border-radius: 50% !important;
+  margin-top: 8px !important;
+  flex-shrink: 0 !important;
+}
+
+.achievement-item p {
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: left !important;
+}
+
+.achievements-list {
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0 !important;
+  margin-bottom: 20px !important;
+}
 }
 /* ========================================================================
    10. CONTACT SECTION
@@ -1914,18 +2120,45 @@ textarea.error + .field-error {
     padding: var(--space-32) var(--space-20);
   }
 
+  /* Contact form FIRST, links BELOW on mobile */
   .contact-container {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column-reverse;  /* Reverses order: form first */
     gap: var(--space-24);
+    margin-top: 3rem;
+  }
+
+  .contact-form {
+    flex: 1;
+    width: 100%;
+    padding: var(--space-24);
   }
 
   .contact-info-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    flex-wrap: nowrap;
   }
 
   .contact-card {
+    display: flex;
     flex-direction: column;
-    text-align: center;
+    align-items: center;
+    gap: 0.75rem;
+    background: transparent;
+    border: none;
+    width: auto;
+  }
+
+  .contact-details p {
+    display: none;  /* ← Hide URL on mobile */
+  }
+
+  .contact-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
   }
 
   .form-group input,
@@ -1935,6 +2168,19 @@ textarea.error + .field-error {
 
   .submit-btn {
     padding: 14px 32px;
+  }
+}
+
+/* DESKTOP - Show everything (icon + name + link) */
+@media (min-width: 769px) {
+  .contact-card {
+    flex-direction: row;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .contact-details {
+    display: block;
   }
 }
 
