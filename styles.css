@@ -4092,3 +4092,140 @@ a:visited {
     padding-top: var(--space-40) !important;
   }
 }
+
+/* ============================================================
+   LIGHT MODE - CONSISTENT BLUE BUTTON COLORS
+   Only applies to light mode, does NOT affect dark mode
+   ============================================================ */
+
+@media (prefers-color-scheme: light) {
+    /* Floating Navigation Buttons */
+    .floating-nav {
+        background: var(--color-white);
+        border: 1px solid var(--color-card-border);
+    }
+
+    .nav-item {
+        color: var(--color-slate-900);
+        transition: all var(--duration-fast) var(--ease-standard);
+    }
+
+    .nav-item:hover {
+        background: rgba(33, 128, 141, 0.1); /* Light teal background */
+        color: var(--color-teal-500);
+    }
+
+    .nav-item.active {
+        background: var(--color-blue-500) !important; /* Blue background */
+        color: white !important;
+        box-shadow: 0 0 20px rgba(25, 118, 210, 0.3);
+    }
+
+    /* Scroll-to-Top Button */
+    .scroll-top {
+        background: var(--color-blue-500) !important;
+        color: white !important;
+        border: none !important;
+    }
+
+    .scroll-top:hover {
+        background: var(--color-blue-600) !important;
+        box-shadow: 0 4px 12px rgba(25, 118, 210, 0.4) !important;
+    }
+
+    /* View Project Button */
+    .view-project-btn {
+        background: var(--color-blue-500) !important;
+        color: white !important;
+        border: none !important;
+        font-weight: 600;
+    }
+
+    .view-project-btn:hover {
+        background: var(--color-blue-600) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(25, 118, 210, 0.4) !important;
+    }
+
+    .view-project-btn:active {
+        transform: translateY(0);
+    }
+
+    /* Send Message Button (Submit Button) */
+    .submit-btn {
+        background: var(--color-blue-500) !important;
+        color: white !important;
+        border: none !important;
+    }
+
+    .submit-btn:hover {
+        background: var(--color-blue-600) !important;
+        box-shadow: 0 4px 12px rgba(25, 118, 210, 0.4) !important;
+        transform: translateY(-2px);
+    }
+
+    .submit-btn:active {
+        transform: translateY(0);
+    }
+
+    /* Download Resume Button */
+    .download-btn {
+        background: var(--color-blue-500) !important;
+        color: white !important;
+        border: none !important;
+    }
+
+    .download-btn:hover {
+        background: var(--color-blue-600) !important;
+        box-shadow: 0 8px 25px rgba(25, 118, 210, 0.5) !important;
+        transform: translateY(-2px);
+    }
+}
+
+/* ============================================================
+   EXPAND TEXT SPACING IN DOWNLOAD RESUME BUTTON
+   ============================================================ */
+
+.download-btn {
+    letter-spacing: 3px !important;  /* Increase from default 2px to 3px */
+    font-weight: 600 !important;
+    font-size: var(--font-size-lg) !important;
+}
+
+/* If you want it even more expanded */
+@media (min-width: 768px) {
+    .download-btn {
+        letter-spacing: 4px !important;  /* More spacing on tablet+ */
+    }
+}
+
+@media (min-width: 1024px) {
+    .download-btn {
+        letter-spacing: 3.5px !important;  /* Even more on desktop */
+    }
+}
+
+/* ============================================================
+   REMOVE UNDERLINE FROM DOWNLOAD RESUME BUTTON
+   ============================================================ */
+
+.download-btn {
+    text-decoration: none !important;
+}
+
+.download-btn:hover {
+    text-decoration: none !important;
+}
+
+.download-btn:active {
+    text-decoration: none !important;
+}
+
+/* Also remove any underline from the link element */
+a.download-btn {
+    text-decoration: none !important;
+}
+
+a.download-btn:visited {
+    text-decoration: none !important;
+}
