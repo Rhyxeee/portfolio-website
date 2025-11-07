@@ -2,15 +2,31 @@
 <html lang="en" data-color-scheme="light">
 <head>
     <meta charset="utf-8" />
+
+    <!-- Add to your HTML head for better PWA support -->
+    <meta name="theme-color" content="#21808D">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Mark Anthony Nene - Data Analyst Portfolio">
+    <meta property="og:description" content="Portfolio showcasing analytics, audits, preprocessing, and visualization projects">
+    <meta property="og:image" content="https://your-domain.com/images/og-image.png">
+    <meta property="og:url" content="https://your-domain.com">
+    <meta name="twitter:card" content="summary_large_image">
+
     <title>Mark Anthony Nene - Data Analyst Portfolio</title>
     <meta name="description" content="Portfolio of Mark Anthony Nene, aspiring Data Analyst with experience in Excel dashboards, audits, and dataset preprocessing.">
     <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="site.webmanifest">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9QHP0D5FLW"></script>
@@ -27,11 +43,11 @@
 
     <main id="main">
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <section class="hero" id="hero">
         <div class="hero-content">
             <div class="hero-top">
                 <div class="hero-profile">
-                    <img src="images/profile.png" alt="Mark Anthony Nene" class="profile-image" id="profileImage" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22%3E%3Crect fill=%22%232D6BAF%22 width=%22120%22 height=%22120%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2248%22 font-weight=%22bold%22%3EMN%3C/text%3E%3C/svg%3E'; this.onerror=null;">
+                    <img src="images/profile.png" alt="Profile photo of Mark Anthony Nene, aspiring Data Analyst" class="profile-image" id="profileImage" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22%3E%3Crect fill=%22%232D6BAF%22 width=%22120%22 height=%22120%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2248%22 font-weight=%22bold%22%3EMN%3C/text%3E%3C/svg%3E'; this.onerror=null;">
                     <div class="hero-info">
                         <h1>Mark Anthony Nene</h1>
                         <p class="hero-subtitle-formatted">Aspiring Data Analyst — Bachelor of Science in Applied Mathematics</p>
@@ -175,7 +191,7 @@
 
     <!-- Floating Navigation -->
     <nav class="floating-nav" id="floatingNav">
-        <a href="#home" class="nav-item active" data-section="home">
+        <a href="#hero" class="nav-item active" data-section="hero">
             <span class="nav-icon"><i data-lucide="home"></i></span>
             <span class="nav-text">Home</span>
         </a>
