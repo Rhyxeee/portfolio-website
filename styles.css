@@ -377,6 +377,13 @@ html {
   color: var(--color-text);
   background-color: var(--color-background);
   box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
 }
 
 body {
@@ -402,6 +409,24 @@ section {
   transform: translateY(30px);
   margin-bottom: 4rem;
   transition: all 0.6s var(--ease-standard);
+  background-color: var(--color-background); /* ADD THIS: Prevents body color from showing through */
+}
+
+/* ✅ FORCE ABOUT SECTION TO BE VISIBLE ON PAGE LOAD */
+#about {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible !important;
+}
+
+/* ✅ ALSO FORCE SKILLS TO BE VISIBLE */
+.skills-section {
+    opacity: 1 !important;
+}
+
+.skill-item {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
 }
 
 section.visible {
@@ -959,25 +984,18 @@ textarea.error + .field-error {
    7. HERO SECTION
    ======================================================================== */
 
-/* Hero Container */
 .hero {
-  min-height: 72vh;
   position: relative;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  padding: var(--space-32) var(--space-20) 120px;
-  background-color: #CCDBDC;
-  margin-bottom: 40px;
-  overflow: hidden;
+  z-index: 1;
 }
 
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 1;
+.hero > * {
+  position: relative;
+  z-index: 10;  /* Keep content above waves */
 }
 
 .hero::after {
@@ -1116,6 +1134,8 @@ textarea.error + .field-error {
   padding: var(--space-40) 80px;
   background-color: var(--color-background);
   margin-bottom: 0px; /* Remove bottom margin to reduce space before Projects section */
+  opacity: 1 !important;  /* ← Force visible on load */
+  transform: translateY(0) !important;  /* ← Remove the slide-up animation on load */
 }
 
 .about-container {
@@ -1293,7 +1313,21 @@ textarea.error + .field-error {
   display: flex;
   flex-direction: column;
   gap: 0.5rem; /* Add a small gap between the header and the bar */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
 }
+
+.skill-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger animation for skills */
+.skill-item:nth-child(1) { transition-delay: 0.1s; }
+.skill-item:nth-child(2) { transition-delay: 0.2s; }
+.skill-item:nth-child(3) { transition-delay: 0.3s; }
+.skill-item:nth-child(4) { transition-delay: 0.4s; }
 
 .skill-header {
   display: flex;
@@ -2376,6 +2410,56 @@ body.body-no-scroll {
   }
 }
 
+/* ============================================================
+   CRITICAL FIX - Remove Black Overlay on Desktop
+   ============================================================ */
+
+/* Force hero to fill entire viewport height */
+.hero {
+    min-height: 100vh !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Remove any top spacing from main and body */
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+main {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Ensure no spacing above hero section */
+.hero:first-child {
+    margin-top: 0 !important;
+}
+
+/* Fix for wide screens specifically (1024px+) */
+@media (min-width: 1024px) {
+    body {
+        background-color: var(--color-background) !important;
+    }
+    
+    .hero {
+        min-height: 100vh !important;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+    
+    /* Ensure Vanta canvas fills the hero */
+    .hero canvas {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+}
+
 /* ========================================================================
    12. MODALS
    ======================================================================== */
@@ -2744,8 +2828,14 @@ body.body-no-scroll {
   }
 
   .hero {
-    min-height: 60vh;
-    padding: var(--space-24) var(--space-16) 100px;
+    min-height: 100vh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .hero-content {
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
   }
 
   .hero-headline {
@@ -3943,4 +4033,62 @@ a {
 
 a:visited {
   color: var(--color-primary);
+}
+
+/* ============================================================
+   FINAL FIX - Remove Black Bar on Desktop (1024px+)
+   ============================================================ */
+
+@media (min-width: 1024px) {
+  /* Remove ANY top spacing/margin that creates the black bar */
+  html {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  body {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    background-color: var(--color-background);
+  }
+
+  main {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  .hero {
+    min-height: 100vh !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .hero-content {
+    margin-top: 0 !important;
+    padding-top: 40px !important;
+    padding-bottom: 100px !important;
+    padding-left: 60px; /* Add breathing room from left edge */
+  }
+
+  .hero-headline {
+    font-size: 3.5rem;
+    max-width: 800px;
+  }
+
+  /* Make sure Vanta canvas fills hero properly */
+  .hero canvas {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Remove top spacing from about section */
+  #about {
+    margin-top: 0 !important;
+    padding-top: var(--space-40) !important;
+  }
 }
