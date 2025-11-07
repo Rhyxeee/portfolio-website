@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     el: "#hero",
                     mouseControls: true,
                     touchControls: true,
-                    color: 0x165579,
+                    color: 0x092434, // ← CHANGE THIS to your new color
                     waveHeight: 15.0,
                     waveSpeed: 0.8,
                     zoom: 0.75,
